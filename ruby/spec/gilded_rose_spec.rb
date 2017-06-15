@@ -81,6 +81,10 @@ describe GildedRose do
 	      @gilded_rose.update_quality()
 	      expect(@items[2].quality).to eq 8
 	    end
+	    it "quality drops to 0 when sell_in reaches 0" do
+	      6.times { @gilded_rose.update_quality() }
+	      expect(@items[2].quality).to eq 0
+	    end
 	end
   end
 
