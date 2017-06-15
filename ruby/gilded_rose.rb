@@ -1,6 +1,7 @@
+require './item'
+
 class GildedRose
-  MAX_QUALITY = 50
-  MIN_QUALITY = 0
+
   attr_reader :items
 
   def initialize(items)
@@ -15,6 +16,9 @@ class GildedRose
   end
 
   private
+
+  MAX_QUALITY = 50
+  MIN_QUALITY = 0
 
   def update_quality(item)
     item.quality -= 1 unless check_backstage_pass(item) ||
@@ -48,7 +52,7 @@ class GildedRose
   end
 
   def check_conjured(item)
-    item.quality -= 2 if item.name.start_with?("Conjured") 
+    item.quality -= 2 if item.name.start_with?("Conjured")
   end
 
   def check_out_of_date(item)
@@ -62,19 +66,5 @@ class GildedRose
 
   def update_sell_in(item)
     item.sell_in -= 1 unless item.name == "Sulfuras, Hand of Ragnaros"
-  end
-end
-
-class Item
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
-  def to_s()
-    "#{@name}, #{@sell_in}, #{@quality}"
   end
 end
