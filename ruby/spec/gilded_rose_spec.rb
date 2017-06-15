@@ -7,7 +7,7 @@ describe GildedRose do
       before(:each) do
         @items = [Item.new("foo", 0, 0), Item.new("bar", 6, 5)]
         @gilded_rose = GildedRose.new(@items)
-        @gilded_rose.update_quality()
+        @gilded_rose.update_items()
       end
       it "does not change the name" do
         expect(@items[0].name).to eq "foo"
@@ -19,23 +19,23 @@ describe GildedRose do
         expect(@items[1].quality).to eq 4
       end
       it "cannot make the quality of an item negative" do
-        @gilded_rose.update_quality()
+        @gilded_rose.update_items()
         expect(@items[0].quality).to eq 0
       end
       it "cannot make the quality of an item negative" do
-        @gilded_rose.update_quality()
+        @gilded_rose.update_items()
         expect(@items[0].quality).to eq 0
       end
       it "quality decreases by 2 when sell_in <= 0" do
         items = [Item.new("foo", 0, 6)]
         gilded_rose = GildedRose.new(items)
-        gilded_rose.update_quality()
+        gilded_rose.update_items()
         expect(items[0].quality).to eq 4
       end
       it "cannot make the quality of an item greater than 50" do
         items = [Item.new("Aged Brie", 20, 49)]
         gilded_rose = GildedRose.new(items)
-        2.times { gilded_rose.update_quality() }
+        2.times { gilded_rose.update_items() }
         expect(items[0].quality).to eq 50
       end
     end
@@ -43,7 +43,7 @@ describe GildedRose do
       before(:each) do
         @items = [Item.new("Aged Brie", 6, 5), Item.new("foo", 6, 5)]
         @gilded_rose = GildedRose.new(@items)
-        @gilded_rose.update_quality()
+        @gilded_rose.update_items()
       end
       it "does not change the name" do
         expect(@items[0].name).to eq "Aged Brie"
@@ -59,7 +59,7 @@ describe GildedRose do
       before(:each) do
         @items = [Item.new("Sulfuras, Hand of Ragnaros", 6, 5), Item.new("foo", 6, 5)]
         @gilded_rose = GildedRose.new(@items)
-        @gilded_rose.update_quality()
+        @gilded_rose.update_items()
       end
       it "does not change the name" do
         expect(@items[0].name).to eq "Sulfuras, Hand of Ragnaros"
@@ -77,7 +77,7 @@ describe GildedRose do
                   Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 5),
                   Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 5)]
         @gilded_rose = GildedRose.new(@items)
-        @gilded_rose.update_quality()
+        @gilded_rose.update_items()
       end
       it "does not change the name" do
         expect(@items[0].name).to eq "Backstage passes to a TAFKAL80ETC concert"
@@ -95,7 +95,7 @@ describe GildedRose do
         expect(@items[2].quality).to eq 8
       end
       it "quality drops to 0 when sell_in reaches 0" do
-        5.times { @gilded_rose.update_quality() }
+        5.times { @gilded_rose.update_items() }
         expect(@items[2].quality).to eq 0
       end
     end
@@ -103,7 +103,7 @@ describe GildedRose do
     	it 'decreases quality by 2' do
     		items = [Item.new("Conjured Mountain Goat", 6, 6)]
 	        gilded_rose = GildedRose.new(items)
-	        2.times { gilded_rose.update_quality() }
+	        2.times { gilded_rose.update_items() }
 	        expect(items[0].quality).to eq 2
 	    end
 	end
