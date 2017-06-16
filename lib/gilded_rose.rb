@@ -1,15 +1,13 @@
-require './item'
+require './lib/item'
 
 class GildedRose
-
-  attr_reader :items
 
   def initialize(items)
     @items = items
   end
 
   def update_items()
-    @items.each do |item|
+    items.each do |item|
       update_quality(item)
       update_sell_in(item)
     end
@@ -17,19 +15,20 @@ class GildedRose
 
   private
 
+  attr_reader :items
   MAX_QUALITY = 50
   MIN_QUALITY = 0
 
   def update_quality(item)
-    item.quality -= 1 unless check_backstage_pass(item) ||
-      check_aged_brie(item) ||
-      check_conjured(item) ||
-      check_sulfuras(item) ||
-      check_out_of_date(item)
+    item.quality -= 1 unless backstage_pass(item) ||
+      aged_brie(item) ||
+      conjured(item) ||
+      sulfuras(item) ||
+      out_of_date(item)
     enforce_quality_limits(item)
   end
 
-  def check_backstage_pass(item)
+  def backstage_pass(item)
     if item.name.start_with?("Backstage passes")
       if item.sell_in <= 0
         item.quality = 0
@@ -43,19 +42,19 @@ class GildedRose
     end
   end
 
-  def check_sulfuras(item)
+  def sulfuras(item)
     item.name == "Sulfuras, Hand of Ragnaros"
   end
 
-  def check_aged_brie(item)
+  def aged_brie(item)
     item.quality += 1 if item.name == "Aged Brie"
   end
 
-  def check_conjured(item)
+  def conjured(item)
     item.quality -= 2 if item.name.start_with?("Conjured")
   end
 
-  def check_out_of_date(item)
+  def out_of_date(item)
     item.quality -= 2 if item.sell_in <= 0
   end
 

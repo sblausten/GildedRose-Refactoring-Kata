@@ -1,5 +1,3 @@
-require './item'
-
 describe Item do
   describe '#new' do
   	before(:each) do

@@ -1,3 +1,5 @@
+require './lib/gilded_rose'
+require './lib/item'
 
 RSpec.configure do |config|
 
